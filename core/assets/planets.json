@@ -1,0 +1,83 @@
+{
+	"mercury": {
+		"name": "Mercury",
+		"radius": 2439.7,
+		"apoapsis": 69816900.0,
+		"periapsis": 46001200.0,
+		"semimajor_axis": 57909050.0,
+		"eccentricity": 0.205630,
+		"avg_orbital_speed": 47.362
+	},
+	"venus": {
+		"name": "Venus",
+		"radius": 6051.8,
+		"apoapsis": 108939000.0,
+		"periapsis": 107477000.0,
+		"semimajor_axis": 108208000.0,
+		"eccentricity": 0.006772,
+		"avg_orbital_speed": 35.02
+	},
+	"earth": {
+		"name": "Earth",
+		"radius": 6371.0,
+		"apoapsis": 152100000.0,
+		"periapsis": 147095000.0,
+		"semimajor_axis": 149598023.0,
+		"eccentricity": 0.0167086,
+		"avg_orbital_speed": 29.78
+	},
+	"mars": {
+		"name": "Mars",
+		"radius": 3389.5,
+		"apoapsis": 249200000.0,
+		"periapsis": 206700000.0,
+		"semimajor_axis": 227939200.0,
+		"eccentricity": 0.0934,
+		"avg_orbital_speed": 24.077
+	},
+	"jupiter": {
+		"name": "Jupiter",
+		"radius": 69911.0,
+		"apoapsis": 816620000.0,
+		"periapsis": 740520000.0,
+		"semimajor_axis": 778570000.0,
+		"eccentricity": 0.0489,
+		"avg_orbital_speed": 13.07
+	},
+	"saturn": {
+		"name": "Saturn",
+		"radius": 58232.0,
+		"apoapsis": 1514500000.0,
+		"periapsis": 1352550000.0,
+		"semimajor_axis": 1433530000.0,
+		"eccentricity": 0.0565,
+		"avg_orbital_speed": 9.68
+	},
+	"uranus": {
+		"name": "Uranus",
+		"radius": 25362.0,
+		"apoapsis": 3008000000.0,
+		"periapsis": 2742000000.0,
+		"semimajor_axis": 2875040000.0 ,
+		"eccentricity": 0.046381,
+		"avg_orbital_speed": 6.80
+	},
+	"neptune": {
+		"name": "Neptune",
+		"radius": 24622.0,
+		"apoapsis": 4540000000.0,
+		"periapsis": 4460000000.0,
+		"semimajor_axis": 4500000000.0,
+		"eccentricity": 0.009456,
+		"avg_orbital_speed": 5.43
+	},
+	"pluto": {
+		"name": "Pluto",
+		"radius": 1188.3,
+		"apoapsis": 7375930000.0,
+		"periapsis": 4436820000.0,
+		"semimajor_axis": 5906380000.0,
+		"eccentricity": 0.2488,
+		"avg_orbital_speed": 4.67
+	}
+}
