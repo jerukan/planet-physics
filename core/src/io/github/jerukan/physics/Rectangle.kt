@@ -1,25 +1,25 @@
 package io.github.jerukan.physics
 
-import io.github.jerukan.util.Position
+import com.badlogic.gdx.math.Vector2
 
 /** Generic rectangle shape with a mass
  * Position is bottom left vertex */
 
-class Rectangle(mass: Float, position: Position, var width: Float, var height: Float): PhysicsObject(mass, position) {
+class Rectangle(mass: Float, position: Vector2, var width: Float, var height: Float): PhysicsObject(mass, position) {
 
     var left: Float = position.x
     var right: Float = position.x + width
     var bottom: Float = position.y
     var top: Float = position.y + height
 
-    var center: Position = Position(position.x + width / 2, position.y + height/2)
+    var center: Vector2 = Vector2(position.x + width / 2, position.y + height/2)
 
-    var leftbottom: Position = Position(left, bottom)
-    var lefttop: Position = Position(left, top)
-    var rightbottom: Position = Position(right, bottom)
-    var righttop: Position = Position(right, top)
+    var leftbottom: Vector2 = Vector2(left, bottom)
+    var lefttop: Vector2 = Vector2(left, top)
+    var rightbottom: Vector2 = Vector2(right, bottom)
+    var righttop: Vector2 = Vector2(right, top)
 
-    override fun collidesPoint(other: Position): Boolean {
+    override fun collidesPoint(other: Vector2): Boolean {
         return other.x >= position.x && other.x <= position.x + width && other.y >= position.y && other.y <= position.y + height
     }
 

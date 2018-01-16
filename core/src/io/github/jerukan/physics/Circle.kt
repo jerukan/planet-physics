@@ -1,13 +1,13 @@
 package io.github.jerukan.physics
 
-import io.github.jerukan.util.Position
+import com.badlogic.gdx.math.Vector2
 
 /** Generic circle shape with a mass */
 
-open class Circle(mass: Float, position: Position, var radius: Float): PhysicsObject(mass, position) {
+open class Circle(mass: Float, position: Vector2, var radius: Float): PhysicsObject(mass, position) {
 
-    override fun collidesPoint(other: Position): Boolean {
-        return position.distanceToPosition(other) <= radius
+    override fun collidesPoint(other: Vector2): Boolean {
+        return position.dst(other) <= radius
     }
 
     override fun collidesRect(other: Rectangle): Boolean {
@@ -16,11 +16,11 @@ open class Circle(mass: Float, position: Position, var radius: Float): PhysicsOb
     }
 
     override fun collidesCircle(other: Circle): Boolean {
-        return position.distanceToPosition(other.position) <= radius + other.radius
+        return position.dst(other.position) <= radius + other.radius
     }
 
     override fun translate(x: Float, y: Float) {
-        position.translate(x, y)
+        position.add(x, y)
     }
 
     override fun scale(magnitude: Float) {

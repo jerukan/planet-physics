@@ -1,6 +1,6 @@
 package io.github.jerukan.planetdata
 
-import io.github.jerukan.util.Position
+import com.badlogic.gdx.math.Vector2
 
 object Planets {
 //    var mercury: Planet = Planet("mercury")
@@ -14,9 +14,9 @@ object Planets {
 //    var pluto: Planet = Planet("pluto")
 //
 //    var planetlist: Array<Planet> = arrayOf(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto)
-    var p1 = Planet("p1", 5000f, Position(-600f, 0f), 100f)
-    var p2 = Planet("p2", 5f, Position(600f, 0f), 100f)
-    var p3 = Planet("p3", 2f, Position(2100f, 0f), 3f)
+    var p1 = Planet("p1", 5000f, Vector2(-600f, 0f), 100f)
+    var p2 = Planet("p2", 5f, Vector2(600f, 0f), 100f)
+    var p3 = Planet("p3", 2f, Vector2(2100f, 0f), 3f)
 
     var planetlist: Array<Planet> = arrayOf(p1, p2)
 
@@ -26,8 +26,7 @@ object Planets {
 
     fun updatePositions(time: Float) {
         for(planet in planetlist) {
-            planet.setAccelFromGravity(planetlist)
-            planet.updatePosition(time)
+            planet.update(planetlist, time)
         }
     }
 }
