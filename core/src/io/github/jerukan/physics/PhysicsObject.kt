@@ -4,11 +4,9 @@ import com.badlogic.gdx.math.Vector2
 
 abstract class PhysicsObject(var mass: Float, var position: Vector2) {
 
-    var xVelocity: Float = 0f
-    var yVelocity: Float = 0f
+    var velocity: Vector2 = Vector2()
 
-    var xAccel: Float = 0f
-    var yAccel: Float = 0f
+    var acceleration: Vector2 = Vector2()
 
     abstract fun collidesPoint(other: Vector2): Boolean
 
@@ -25,9 +23,8 @@ abstract class PhysicsObject(var mass: Float, var position: Vector2) {
     abstract fun getPerimeter(): Float
 
     open fun updatePosition(time: Float) {
-        xVelocity += xAccel * time
-        yVelocity += yAccel * time
+        velocity.add(acceleration.scl(time, time))
 
-        translate(xVelocity, yVelocity)
+        position.add(velocity)
     }
 }

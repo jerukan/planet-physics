@@ -36,5 +36,6 @@ class Main : Game() {
 
     override fun dispose() {
         batch.dispose()
+        Renderer.dispose()
     }
 }

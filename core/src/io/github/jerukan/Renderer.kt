@@ -44,4 +44,9 @@ object Renderer {
 
         batch.end()
     }
+
+    fun dispose() {
+        shapeRenderer.dispose()
+        font.dispose()
+    }
 }
