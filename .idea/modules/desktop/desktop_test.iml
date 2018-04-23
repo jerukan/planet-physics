@@ -26,18 +26,14 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6">
     <output-test url="file://$MODULE_DIR$/../../../desktop/out/test/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../desktop/src/test">
-      <sourceFolder url="file://$MODULE_DIR$/../../../desktop/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../desktop/src/test/kotlin" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../desktop/src/test/resources" type="java-test-resource" />
-    </content>
+    <content url="file://$MODULE_DIR$/../../../desktop/src/test" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="desktop_main" />
     <orderEntry type="module" module-name="core_main" />
     <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.8" level="project" />
     <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-platform:natives-desktop:1.9.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.2.31" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.2.40" level="project" />
     <orderEntry type="library" name="Gradle: com.beust:klaxon:0.30" level="project" />
     <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx:1.9.8" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
@@ -45,8 +41,8 @@
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl_util:2.9.2" level="project" />
     <orderEntry type="library" name="Gradle: com.badlogicgames.jlayer:jlayer:1.0.1-gdx" level="project" />
     <orderEntry type="library" name="Gradle: org.jcraft:jorbis:0.0.17" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.31" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.31" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.40" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.40" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-windows:2.9.2" level="project" />
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-linux:2.9.2" level="project" />

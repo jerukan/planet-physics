@@ -49,7 +49,7 @@ class Planet(planetname: String, mass: Float, position: Vector2, radius: Float):
             print(projectedVel)
             velocity.set(projectedVel)
 
-            position.set(prevPos)
+//            position.set(prevPos)
             projectedVel.set(0f, 0f)
             collided = false
         }
@@ -109,7 +109,7 @@ class Planet(planetname: String, mass: Float, position: Vector2, radius: Float):
         }
 
         //in the case the planets are inside each other, set them to where they would've been at instant of collision
-        prevPos.set(collideposx, collideposy)
+//        prevPos.set(collideposx, collideposy)
 
         projectedVel.x = (velocity.x * (mass - other.mass) + (2 * other.mass * other.velocity.x)) / (mass + other.mass)
         projectedVel.y = (velocity.y * (mass - other.mass) + (2 * other.mass * other.velocity.y)) / (mass + other.mass)

@@ -14,14 +14,14 @@ object Planets {
 //    var pluto: Planet = Planet("pluto")
 //
 //    var planetlist: Array<Planet> = arrayOf(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto)
-    var p1 = Planet("p1", 5000f, Vector2(-200f, 0f), 50f)
-    var p2 = Planet("p2", 5000f, Vector2(200f, 0f), 50f)
-    var p3 = Planet("p3", 2f, Vector2(2100f, 0f), 3f)
+    var p1 = Planet("p1", 500f, Vector2(-200f, 0f), 50f)
+    var p2 = Planet("p2", 500f, Vector2(200f, 0f), 50f)
+    var p3 = Planet("p3", 200f, Vector2(500f, 100f), 30f)
 
-    var planetlist: Array<Planet> = arrayOf(p1, p2)
+    var planetlist: Array<Planet> = arrayOf(p1, p2, p3)
 
     fun init() {
-//        p2.setCircularOrbit(p1)
+        p2.setCircularOrbit(p1)
     }
 
     fun updatePositions(time: Float) {
