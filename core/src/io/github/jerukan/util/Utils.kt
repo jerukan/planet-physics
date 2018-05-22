@@ -1,6 +1,7 @@
 package io.github.jerukan.util
 
 import io.github.jerukan.physics.PhysicsConstants
+import kotlin.math.abs
 
 class Utils {
 
@@ -23,6 +24,10 @@ class Utils {
                 num -= PhysicsConstants.PI
             }
             return num
+        }
+
+        fun withinThreshold(num: Float, target: Float, threshold: Float): Boolean {
+            return abs(target - num) < abs(threshold)
         }
     }
 }

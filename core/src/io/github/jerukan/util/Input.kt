@@ -2,9 +2,10 @@ package io.github.jerukan.util
 
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
-import io.github.jerukan.Renderer
+import io.github.jerukan.rendering.WorldRenderer
 
-class Input: InputProcessor {
+class Input(val renderer: WorldRenderer): InputProcessor {
+
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         return false
     }
@@ -19,21 +20,19 @@ class Input: InputProcessor {
 
     override fun scrolled(amount: Int): Boolean {
         if (amount == 1) {
-            Renderer.camwrapper.setCamTargetZoom(0.05f)
+            renderer.getCamera().addTargetZoom(0.05f)
         } else if (amount == -1) {
-            Renderer.camwrapper.setCamTargetZoom(-0.05f)
+            renderer.getCamera().addTargetZoom(-0.05f)
         }
         return false
     }
 
     override fun keyUp(keycode: Int): Boolean {
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT || keycode == Input.Keys.A || keycode == Input.Keys.D) {
-            Renderer.camwrapper.setCamAccelX(0f)
-            Renderer.camwrapper.camSlowingX = true
+            renderer.getCamera().setCamAccelX(0f)
         }
         if (keycode == Input.Keys.UP || keycode == Input.Keys.DOWN || keycode == Input.Keys.W || keycode == Input.Keys.S) {
-            Renderer.camwrapper.setCamAccelY(0f)
-            Renderer.camwrapper.camSlowingY = true
+            renderer.getCamera().setCamAccelY(0f)
         }
         return false
     }
@@ -44,20 +43,16 @@ class Input: InputProcessor {
 
     override fun keyDown(keycode: Int): Boolean {
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
-            Renderer.camwrapper.setCamAccelX(-0.25f)
-            Renderer.camwrapper.camSlowingX = false
+            renderer.getCamera().setCamAccelX(-0.25f)
         }
         if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) {
-            Renderer.camwrapper.setCamAccelX(0.25f)
-            Renderer.camwrapper.camSlowingX = false
+            renderer.getCamera().setCamAccelX(0.25f)
         }
         if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
-            Renderer.camwrapper.setCamAccelY(0.25f)
-            Renderer.camwrapper.camSlowingY = false
+            renderer.getCamera().setCamAccelY(0.25f)
         }
         if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
-            Renderer.camwrapper.setCamAccelY(-0.25f)
-            Renderer.camwrapper.camSlowingY = false
+            renderer.getCamera().setCamAccelY(-0.25f)
         }
         return false
     }

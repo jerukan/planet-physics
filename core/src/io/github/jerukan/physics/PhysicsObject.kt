@@ -2,28 +2,21 @@ package io.github.jerukan.physics
 
 import com.badlogic.gdx.math.Vector2
 
-abstract class PhysicsObject(var mass: Float, var position: Vector2) {
+abstract class PhysicsObject(var mass: Float, var position: Vector2, var hitbox: Shape) {
 
     var velocity: Vector2 = Vector2()
 
     var acceleration: Vector2 = Vector2()
 
-    abstract fun collidesPoint(other: Vector2): Boolean
+    fun applyForce(force: Vector2) {
+        acceleration.add(force.scl(1 / mass, 1 / mass))
+    }
 
-    abstract fun collidesRect(other: Rectangle): Boolean
-
-    abstract fun collidesCircle(other: Circle): Boolean
-
-    abstract fun translate(x: Float, y: Float)
-
-    abstract fun scale(magnitude: Float)
-
-    abstract fun getArea(): Float
-
-    abstract fun getPerimeter(): Float
-
-    open fun updatePosition(time: Float) {
-        velocity.add(acceleration.scl(time, time))
+    /**
+     * Should update whatever vectors in the object need to change.
+     */
+    open fun updateVectors(deltaTime: Float) {
+        velocity.add(acceleration.scl(deltaTime, deltaTime))
 
         position.add(velocity)
     }
