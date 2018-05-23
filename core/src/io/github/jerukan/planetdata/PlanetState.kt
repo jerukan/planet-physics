@@ -20,7 +20,7 @@ class PlanetState(private val planetList: ArrayList<Planet>): PhysicsState() {
 //    var p3 = Planet("p3", 200f, Vector2(500f, 100f), 30f)
 
     override fun update() {
-        for(loops in 1..warp) {
+        for(loops in 0 until warp) {
             for (i in planetList.indices) {
                 for (j in IntRange(i + 1, planetList.size - 1)) {
                     if (planetList[i].collidesPlanet(planetList[j])) {
