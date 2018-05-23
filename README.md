@@ -1,3 +1,3 @@
 planets
 
-yes the orbits are hard coded
+what utter garbage
