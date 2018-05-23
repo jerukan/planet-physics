@@ -5,6 +5,7 @@ import java.util.*
 
 open class PhysicsState {
 
+    var warp: Int = 1
     protected val timer: Timer = Timer()
     protected val physicsObjects: ArrayList<PhysicsObject> = ArrayList()
 

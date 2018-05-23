@@ -25,10 +25,11 @@ class Main : Game() {
         batch = SpriteBatch()
         planetState = PlanetState(planetList)
         renderer = WorldRenderer(drawables)
-        Gdx.input.inputProcessor = Input(renderer)
+        Gdx.input.inputProcessor = Input(planetState, renderer)
         batch = SpriteBatch()
 
-        add(Planet("bap", 500f, Vector2(0f, 0f), 500f))
+        add(Planet("bap", 500f, Vector2(0f, 0f), 50f))
+        add(Planet("bip", 500f, Vector2(200f, 200f), 50f))
     }
 
     override fun render() {
@@ -51,6 +52,10 @@ class Main : Game() {
         renderer.dispose()
     }
 
+    /**
+     * Modified to specifically add planets.
+     * @param obj anything that is a PhysicsObject, Drawable, or both.
+     */
     fun add(obj: Any) {
         if(obj is Planet) {
             planetState.add(obj)

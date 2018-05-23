@@ -24,7 +24,7 @@ class Timer {
     }
 
     /**
-     * Gets total time elapsed in seconds.
+     * Gets total time elapsed in seconds from last reset.
      */
     fun getElapsed(): Double {
         return (System.nanoTime() - startTime).toDouble() / NANO_TO_SECOND

@@ -2,9 +2,10 @@ package io.github.jerukan.util
 
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
+import io.github.jerukan.physics.PhysicsState
 import io.github.jerukan.rendering.WorldRenderer
 
-class Input(val renderer: WorldRenderer): InputProcessor {
+class Input(val physicsState: PhysicsState, val renderer: WorldRenderer): InputProcessor {
 
     val pressedKeys = BooleanArray(4) //[up, down, left, right]
 
@@ -78,6 +79,14 @@ class Input(val renderer: WorldRenderer): InputProcessor {
             pressedKeys[1] = true
         }
         renderer.getCamera().setInputKeys(pressedKeys)
+
+        if (keycode == Input.Keys.PERIOD) {
+            physicsState.warp++
+        }
+        if(keycode == Input.Keys.COMMA) {
+            physicsState.warp--
+        }
+
         return false
     }
 

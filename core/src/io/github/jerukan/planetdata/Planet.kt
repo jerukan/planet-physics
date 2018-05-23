@@ -11,7 +11,7 @@ import io.github.jerukan.rendering.camera.OrthoCameraWrapper
 import io.github.jerukan.util.shapes.Circle
 import kotlin.math.abs
 
-class Planet(planetname: String, mass: Float, position: Vector2, var radius: Float): PhysicsObject(mass, position, Circle(position, radius)), Drawable {
+class Planet(var name: String, mass: Float, position: Vector2, var radius: Float): PhysicsObject(mass, position, Circle(position, radius)), Drawable {
     //    var parser: Parser = Parser()
 //    var info: JsonObject = parser.parse("planetList.json") as JsonObject
 //    var planetinfo: JsonObject = info[planetname] as JsonObject
@@ -20,7 +20,7 @@ class Planet(planetname: String, mass: Float, position: Vector2, var radius: Flo
     private var prevPos = Vector2(position) //used to detect where a planet would be at moment of a collision
     private var trail = ArrayList<Vector2>()
 
-    private lateinit var gravitiesFromPlanets: ArrayList<Planet> //the ArrayList containing all other planetList to calculate gravitational forces
+    private lateinit var gravitiesFromPlanets: ArrayList<Planet> //the ArrayList containing all other planets to calculate gravitational forces
 
     private var lineEnd = Vector2()
 
@@ -35,7 +35,7 @@ class Planet(planetname: String, mass: Float, position: Vector2, var radius: Flo
     init {
         val circlePixmap = Pixmap((radius * 2).toInt(), (radius * 2).toInt(), Pixmap.Format.RGBA8888)
         circlePixmap.setColor(1f, 1f, 1f, 1f)
-        circlePixmap.fillCircle(position.x.toInt(), position.y.toInt(), radius.toInt())
+        circlePixmap.fillCircle(radius.toInt(), radius.toInt(), radius.toInt())
         texture = Texture(circlePixmap)
         circlePixmap.dispose()
     }
@@ -86,13 +86,6 @@ class Planet(planetname: String, mass: Float, position: Vector2, var radius: Flo
 
         return Vector2(xa, ya)
     }
-
-
-
-//    fun display(shapeRenderer: ShapeRenderer) {
-//        shapeRenderer.circle(position.x, position.y, radius)
-//        shapeRenderer.line(position.x, position.y, lineEnd.x, lineEnd.y)
-//    }
 
     fun collidesPlanet(other: Planet): Boolean {
         return hitbox.collides(other.hitbox)
