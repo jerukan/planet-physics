@@ -11,6 +11,10 @@ class Input(val physicsState: PhysicsState, val renderer: WorldRenderer): InputP
 
     val maxAccel = renderer.getCamera().MAX_ACCELERATION
 
+    init {
+        renderer.getCamera().setInputKeys(pressedKeys)
+    }
+
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         return false
     }
@@ -45,7 +49,6 @@ class Input(val physicsState: PhysicsState, val renderer: WorldRenderer): InputP
         if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
             pressedKeys[1] = false
         }
-        renderer.getCamera().setInputKeys(pressedKeys)
         return false
     }
 
@@ -78,7 +81,6 @@ class Input(val physicsState: PhysicsState, val renderer: WorldRenderer): InputP
             }
             pressedKeys[1] = true
         }
-        renderer.getCamera().setInputKeys(pressedKeys)
 
         if (keycode == Input.Keys.PERIOD) {
             physicsState.warp++
