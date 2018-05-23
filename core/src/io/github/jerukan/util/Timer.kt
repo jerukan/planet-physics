@@ -2,7 +2,7 @@ package io.github.jerukan.util
 
 class Timer {
 
-    val nanoToSecond = 1000000000
+    val NANO_TO_SECOND = 1000000000
 
     private var startTime: Long = 0
     private var previousTime: Long = 0
@@ -27,13 +27,13 @@ class Timer {
      * Gets total time elapsed in seconds.
      */
     fun getElapsed(): Double {
-        return (System.nanoTime() - startTime).toDouble() / nanoToSecond
+        return (System.nanoTime() - startTime).toDouble() / NANO_TO_SECOND
     }
 
     /**
      * Gets the delta time from the previous time it was updated.
      */
     fun getDelta(): Double {
-        return (System.nanoTime() - previousTime).toDouble() / nanoToSecond
+        return (System.nanoTime() - previousTime).toDouble() / NANO_TO_SECOND
     }
 }

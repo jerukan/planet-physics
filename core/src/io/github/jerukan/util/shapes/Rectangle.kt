@@ -2,8 +2,6 @@ package io.github.jerukan.util.shapes
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
-import io.github.jerukan.physics.Circle
-import io.github.jerukan.physics.Shape
 
 /**
  * Generic rectangle shape.

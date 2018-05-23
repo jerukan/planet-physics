@@ -5,16 +5,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import io.github.jerukan.rendering.camera.GenericCamera
 import io.github.jerukan.rendering.camera.OrthoCameraWrapper
 
-class WorldRenderer(private val batch: SpriteBatch) {
+class WorldRenderer(private val drawables: ArrayList<Drawable>) {
 
     private val camera: OrthoCameraWrapper = GenericCamera()
-    private val drawables: ArrayList<Drawable> = ArrayList()
 
     fun add(drawable: Drawable) {
         drawables.add(drawable)
     }
 
-    fun render() {
+    fun render(batch: SpriteBatch) {
         for(drawable in drawables) {
             if(drawable.inCameraWindow(camera)) {
                 drawable.render(batch)

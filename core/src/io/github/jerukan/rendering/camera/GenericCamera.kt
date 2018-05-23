@@ -1,21 +1,28 @@
 package io.github.jerukan.rendering.camera
 
 import com.badlogic.gdx.math.MathUtils
-import io.github.jerukan.util.Utils.Functions
+import io.github.jerukan.util.Functions
+import kotlin.math.abs
 import kotlin.math.sign
 
 class GenericCamera: OrthoCameraWrapper() {
 
-    private val MAX_ZOOM = 3f
-    private val MIN_ZOOM = 0.1f
-    private val ZOOM_SPEED = 0.05f
+    val MAX_ZOOM = 3f
+    val MIN_ZOOM = 0.1f
+    val ZOOM_SPEED = 0.05f
 
-    private val MAX_VELOCITY = 5f
-    private val ZERO_SPEED_THRESHOLD = 0.2f
-    private val MAX_ACCELERATION = 0.6f
+    val MAX_VELOCITY = 5f
+    val ZERO_SPEED_THRESHOLD = 0.1f
+    val MAX_ACCELERATION = 0.15f
 
     private var camZoom = 1f
     private var camTargetZoom = 1f
+
+    private var inputKeys: BooleanArray = BooleanArray(4) //[up, down, left, right]
+
+    fun setInputKeys(keys: BooleanArray) {
+        inputKeys = keys
+    }
 
     override fun update() {
         updateOffsets()
@@ -32,7 +39,39 @@ class GenericCamera: OrthoCameraWrapper() {
     }
 
     override fun updateVectors() {
+        if(inputKeys[2]) {
+            acceleration.x = -MAX_ACCELERATION
+        }
+        if(inputKeys[3]) {
+            acceleration.x = MAX_ACCELERATION
+        }
+        if(!inputKeys[2] && !inputKeys[3]) {
+            if(abs(velocity.x) < ZERO_SPEED_THRESHOLD) {
+                velocity.x = 0f
+                acceleration.x = 0f
+            }
+            else {
+                acceleration.x = MAX_ACCELERATION * -sign(velocity.x)
+            }
+        }
+        if(inputKeys[0]) {
+            acceleration.y = MAX_ACCELERATION
+        }
+        if(inputKeys[1]) {
+            acceleration.y = -MAX_ACCELERATION
+        }
+        if(!inputKeys[0] && !inputKeys[1]) {
+            if(abs(velocity.y) < ZERO_SPEED_THRESHOLD) {
+                velocity.y = 0f
+                acceleration.y = 0f
+            }
+            else {
+                acceleration.y = MAX_ACCELERATION * -sign(velocity.y)
+            }
+        }
         velocity.add(acceleration)
+        velocity.x = MathUtils.clamp(velocity.x, -MAX_VELOCITY, MAX_VELOCITY)
+        velocity.y = MathUtils.clamp(velocity.y, -MAX_VELOCITY, MAX_VELOCITY)
     }
 
     override fun updateZoom() {
@@ -41,14 +80,6 @@ class GenericCamera: OrthoCameraWrapper() {
             camZoom += ZOOM_SPEED * zoomDir
             camZoom = MathUtils.clamp(camZoom, MIN_ZOOM, MAX_ZOOM)
         }
-    }
-
-    fun setCamAccelX(x: Float) {
-        acceleration.x = x
-    }
-
-    fun setCamAccelY(y: Float) {
-        acceleration.y = y
     }
 
     fun addTargetZoom(zoom: Float) {

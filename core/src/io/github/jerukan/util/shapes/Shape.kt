@@ -1,8 +1,7 @@
-package io.github.jerukan.physics
+package io.github.jerukan.util.shapes
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
-import io.github.jerukan.util.shapes.Rectangle
 
 /**
  * Generic shape that holds only its position.
@@ -35,7 +34,9 @@ abstract class Shape(pos: Vector2) {
         return false
     }
 
-    abstract fun translate(x: Float, y: Float)
+    open fun translate(x: Float, y: Float) {
+        position.add(x, y)
+    }
 
     abstract fun scale(magnitude: Float)
 

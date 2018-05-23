@@ -8,19 +8,19 @@ import io.github.jerukan.physics.PhysicsConstants
 import io.github.jerukan.physics.PhysicsObject
 import io.github.jerukan.rendering.Drawable
 import io.github.jerukan.rendering.camera.OrthoCameraWrapper
-import io.github.jerukan.physics.Circle
+import io.github.jerukan.util.shapes.Circle
 import kotlin.math.abs
 
 class Planet(planetname: String, mass: Float, position: Vector2, var radius: Float): PhysicsObject(mass, position, Circle(position, radius)), Drawable {
     //    var parser: Parser = Parser()
-//    var info: JsonObject = parser.parse("planets.json") as JsonObject
+//    var info: JsonObject = parser.parse("planetList.json") as JsonObject
 //    var planetinfo: JsonObject = info[planetname] as JsonObject
 //
 //    val name: String = planetinfo["name"] as String
     private var prevPos = Vector2(position) //used to detect where a planet would be at moment of a collision
     private var trail = ArrayList<Vector2>()
 
-    private lateinit var gravitiesFromPlanets: ArrayList<Planet> //the ArrayList containing all other planets to calculate gravitational forces
+    private lateinit var gravitiesFromPlanets: ArrayList<Planet> //the ArrayList containing all other planetList to calculate gravitational forces
 
     private var lineEnd = Vector2()
 
@@ -30,7 +30,7 @@ class Planet(planetname: String, mass: Float, position: Vector2, var radius: Flo
     private var collided = false
     private var canCollide = true
 
-    private lateinit var texture: Texture
+    private var texture: Texture
 
     init {
         val circlePixmap = Pixmap((radius * 2).toInt(), (radius * 2).toInt(), Pixmap.Format.RGBA8888)
@@ -125,7 +125,7 @@ class Planet(planetname: String, mass: Float, position: Vector2, var radius: Flo
             position.y
         }
 
-        //in the case the planets are inside each other, set them to where they would've been at instant of collision
+        //in the case the planetList are inside each other, set them to where they would've been at instant of collision
 //        prevPos.set(collideposx, collideposy)
 
         projectedVel.x = (velocity.x * (mass - other.mass) + (2 * other.mass * other.velocity.x)) / (mass + other.mass)

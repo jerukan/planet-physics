@@ -1,8 +1,9 @@
 package io.github.jerukan.physics
 
 import com.badlogic.gdx.math.Vector2
+import io.github.jerukan.util.shapes.Shape
 
-abstract class PhysicsObject(var mass: Float, var position: Vector2, var hitbox: Shape) {
+open class PhysicsObject(var mass: Float, var position: Vector2, var hitbox: Shape) {
 
     var velocity: Vector2 = Vector2()
 

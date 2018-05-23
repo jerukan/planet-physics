@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Vector2
 import io.github.jerukan.physics.PhysicsObject
 import io.github.jerukan.physics.PhysicsState
 import io.github.jerukan.planetdata.Planet
@@ -16,25 +17,28 @@ class Main : Game() {
     lateinit var batch: SpriteBatch
     lateinit var renderer: WorldRenderer
     lateinit var planetState: PlanetState
-//    var time: Double = 0.0
+
+    val drawables: ArrayList<Drawable> = ArrayList()
+    val planetList: ArrayList<Planet> = ArrayList()
 
     override fun create() {
         batch = SpriteBatch()
-        planetState = PlanetState()
-        renderer = WorldRenderer(batch)
+        planetState = PlanetState(planetList)
+        renderer = WorldRenderer(drawables)
         Gdx.input.inputProcessor = Input(renderer)
         batch = SpriteBatch()
+
+        add(Planet("bap", 500f, Vector2(0f, 0f), 500f))
     }
 
     override fun render() {
-//        time += Utils.Constants.t_step
         renderer.getCamera().update()
         batch.projectionMatrix.set(renderer.getOrthoCamera().combined)
         planetState.update()
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         batch.begin()
-        renderer.render()
+        renderer.render(batch)
         batch.end()
     }
 
