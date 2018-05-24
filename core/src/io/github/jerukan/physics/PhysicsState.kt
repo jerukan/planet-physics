@@ -20,7 +20,7 @@ open class PhysicsState {
         timer.update()
     }
 
-    fun add(physicsObject: PhysicsObject) {
+    open fun add(physicsObject: PhysicsObject) {
         physicsObjects.add(physicsObject)
     }
 }

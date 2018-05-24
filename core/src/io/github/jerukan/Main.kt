@@ -2,6 +2,7 @@ package io.github.jerukan
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
@@ -11,25 +12,36 @@ import io.github.jerukan.planetdata.Planet
 import io.github.jerukan.planetdata.PlanetState
 import io.github.jerukan.rendering.Drawable
 import io.github.jerukan.rendering.WorldRenderer
+import io.github.jerukan.ui.UIManager
 import io.github.jerukan.util.Input
 
 class Main : Game() {
     lateinit var batch: SpriteBatch
     lateinit var renderer: WorldRenderer
     lateinit var planetState: PlanetState
+    lateinit var uiManager: UIManager
+
+    lateinit var inputs: InputMultiplexer
 
     val drawables: ArrayList<Drawable> = ArrayList()
     val planetList: ArrayList<Planet> = ArrayList()
 
     override fun create() {
         batch = SpriteBatch()
-        planetState = PlanetState(planetList)
+        planetState = PlanetState(planetList, drawables)
         renderer = WorldRenderer(drawables)
-        Gdx.input.inputProcessor = Input(planetState, renderer)
+        uiManager = UIManager(batch, planetState)
+        inputs = InputMultiplexer()
+        inputs.addProcessor(uiManager.stage)
+        inputs.addProcessor(Input(planetState, renderer))
+        Gdx.input.inputProcessor = inputs
         batch = SpriteBatch()
 
-        add(Planet("bap", 500f, Vector2(0f, 0f), 50f))
-        add(Planet("bip", 500f, Vector2(200f, 200f), 50f))
+        val p1 = Planet("bap", 500f, Vector2(250f, 250f), 50f)
+        val p2 = Planet("bip", 5f, Vector2(400f, 250f), 5f)
+        p2.setCircularOrbit(p1)
+        add(p1)
+        add(p2)
     }
 
     override fun render() {
@@ -41,6 +53,7 @@ class Main : Game() {
         batch.begin()
         renderer.render(batch)
         batch.end()
+        uiManager.render()
     }
 
     override fun resize(width: Int, height: Int) {

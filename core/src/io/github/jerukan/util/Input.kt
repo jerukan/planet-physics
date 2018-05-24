@@ -1,8 +1,11 @@
 package io.github.jerukan.util
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
+import com.badlogic.gdx.math.Vector2
 import io.github.jerukan.physics.PhysicsState
+import io.github.jerukan.planetdata.Planet
 import io.github.jerukan.rendering.WorldRenderer
 
 class Input(val physicsState: PhysicsState, val renderer: WorldRenderer): InputProcessor {
@@ -87,6 +90,10 @@ class Input(val physicsState: PhysicsState, val renderer: WorldRenderer): InputP
         }
         if(keycode == Input.Keys.COMMA) {
             physicsState.warp--
+        }
+
+        if(keycode == Input.Keys.F) {
+            physicsState.add(Planet("lol", 100f, Vector2(Gdx.input.x.toFloat() - 25f, Gdx.graphics.height - Gdx.input.y - 50f), 50f))
         }
 
         return false

@@ -1,9 +1,11 @@
 package io.github.jerukan.planetdata
 
 import com.badlogic.gdx.math.Vector2
+import io.github.jerukan.physics.PhysicsObject
 import io.github.jerukan.physics.PhysicsState
+import io.github.jerukan.rendering.Drawable
 
-class PlanetState(private val planetList: ArrayList<Planet>): PhysicsState() {
+class PlanetState(private val planetList: ArrayList<Planet>, private val drawables: ArrayList<Drawable>): PhysicsState() {
 //    var mercury: Planet = Planet("mercury")
 //    var venus: Planet = Planet("venus")
 //    var earth: Planet = Planet("earth")
@@ -37,11 +39,20 @@ class PlanetState(private val planetList: ArrayList<Planet>): PhysicsState() {
     fun add(planet: Planet) {
         planetList.add(planet)
         planet.setGravitiesFromPlanets(planetList)
+        drawables.add(planet)
     }
 
     fun add(vararg allPlanets: Planet) {
         for(planet in allPlanets) {
             add(planet)
+        }
+    }
+
+    override fun add(physicsObject: PhysicsObject) {
+        if(physicsObject is Planet) {
+            add(physicsObject)
+        } else {
+            super.add(physicsObject)
         }
     }
 }
