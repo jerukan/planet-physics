@@ -1,10 +1,14 @@
-package io.github.jerukan.physics
+package io.github.jerukan.util.shapes
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
 
-/** Generic circle shape with a mass */
+/**
+ * Generic circle shape.
+ * Position is the center of the circle.
+ */
 
-open class Circle(mass: Float, position: Vector2, var radius: Float): PhysicsObject(mass, position) {
+open class Circle(position: Vector2, var radius: Float): Shape(position) {
 
     override fun collidesPoint(other: Vector2): Boolean {
         return position.dst(other) <= radius
@@ -16,7 +20,7 @@ open class Circle(mass: Float, position: Vector2, var radius: Float): PhysicsObj
     }
 
     override fun collidesCircle(other: Circle): Boolean {
-        return position.dst(other.position) <= radius + other.radius
+        return position.dst2(other.position) <= (radius + other.radius) * (radius + other.radius)
     }
 
     override fun translate(x: Float, y: Float) {
@@ -28,10 +32,14 @@ open class Circle(mass: Float, position: Vector2, var radius: Float): PhysicsObj
     }
 
     override fun getArea(): Float {
-        return (radius * PhysicsConstants.PIsq).toFloat()
+        return (radius * Math.PI * Math.PI).toFloat()
     }
 
     override fun getPerimeter(): Float {
-        return (radius * 2 * PhysicsConstants.PI2).toFloat()
+        return (radius * 4 * Math.PI).toFloat()
+    }
+
+    override fun render(shapeRenderer: ShapeRenderer) {
+        shapeRenderer.circle(position.x, position.y, radius)
     }
 }

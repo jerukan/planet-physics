@@ -1,10 +1,23 @@
 package io.github.jerukan.util
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
-import io.github.jerukan.Renderer
+import com.badlogic.gdx.math.Vector2
+import io.github.jerukan.physics.PhysicsState
+import io.github.jerukan.planetdata.Planet
+import io.github.jerukan.rendering.WorldRenderer
 
-class Input: InputProcessor {
+class Input(val physicsState: PhysicsState, val renderer: WorldRenderer): InputProcessor {
+
+    val pressedKeys = BooleanArray(4) //[up, down, left, right]
+
+    val maxAccel = renderer.getCamera().MAX_ACCELERATION
+
+    init {
+        renderer.getCamera().setInputKeys(pressedKeys)
+    }
+
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         return false
     }
@@ -19,21 +32,25 @@ class Input: InputProcessor {
 
     override fun scrolled(amount: Int): Boolean {
         if (amount == 1) {
-            Renderer.camwrapper.setCamTargetZoom(0.05f)
+            renderer.getCamera().addTargetZoom(0.05f)
         } else if (amount == -1) {
-            Renderer.camwrapper.setCamTargetZoom(-0.05f)
+            renderer.getCamera().addTargetZoom(-0.05f)
         }
         return false
     }
 
     override fun keyUp(keycode: Int): Boolean {
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT || keycode == Input.Keys.A || keycode == Input.Keys.D) {
-            Renderer.camwrapper.setCamAccelX(0f)
-            Renderer.camwrapper.camSlowingX = true
+        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
+            pressedKeys[2] = false
         }
-        if (keycode == Input.Keys.UP || keycode == Input.Keys.DOWN || keycode == Input.Keys.W || keycode == Input.Keys.S) {
-            Renderer.camwrapper.setCamAccelY(0f)
-            Renderer.camwrapper.camSlowingY = true
+        if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) {
+            pressedKeys[3] = false
+        }
+        if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
+            pressedKeys[0] = false
+        }
+        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
+            pressedKeys[1] = false
         }
         return false
     }
@@ -44,21 +61,41 @@ class Input: InputProcessor {
 
     override fun keyDown(keycode: Int): Boolean {
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
-            Renderer.camwrapper.setCamAccelX(-0.25f)
-            Renderer.camwrapper.camSlowingX = false
+            if(pressedKeys[3]) {
+                pressedKeys[3] = false
+            }
+            pressedKeys[2] = true
         }
         if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) {
-            Renderer.camwrapper.setCamAccelX(0.25f)
-            Renderer.camwrapper.camSlowingX = false
+            if(pressedKeys[2]) {
+                pressedKeys[2] = false
+            }
+            pressedKeys[3] = true
         }
         if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
-            Renderer.camwrapper.setCamAccelY(0.25f)
-            Renderer.camwrapper.camSlowingY = false
+            if(pressedKeys[1]) {
+                pressedKeys[1] = false
+            }
+            pressedKeys[0] = true
         }
         if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
-            Renderer.camwrapper.setCamAccelY(-0.25f)
-            Renderer.camwrapper.camSlowingY = false
+            if(pressedKeys[0]) {
+                pressedKeys[0] = false
+            }
+            pressedKeys[1] = true
         }
+
+        if (keycode == Input.Keys.PERIOD) {
+            physicsState.warp++
+        }
+        if(keycode == Input.Keys.COMMA) {
+            physicsState.warp--
+        }
+
+        if(keycode == Input.Keys.F) {
+            physicsState.add(Planet("lol", 100f, Vector2(Gdx.input.x.toFloat() - 25f, Gdx.graphics.height - Gdx.input.y - 50f), 50f))
+        }
+
         return false
     }
 

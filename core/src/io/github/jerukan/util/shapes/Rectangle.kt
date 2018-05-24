@@ -1,11 +1,19 @@
-package io.github.jerukan.physics
+package io.github.jerukan.util.shapes
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
 
-/** Generic rectangle shape with a mass
- * Position is bottom left vertex */
+/**
+ * Generic rectangle shape.
+ * The position is bottom left vertex.
+ */
+class Rectangle(position: Vector2, var width: Float, var height: Float): Shape(position) {
 
-class Rectangle(mass: Float, position: Vector2, var width: Float, var height: Float): PhysicsObject(mass, position) {
+    companion object {
+        fun drawRect(shapeRenderer: ShapeRenderer, rectangle: Rectangle) {
+            shapeRenderer.rect(rectangle.position.x, rectangle.position.y, rectangle.width, rectangle.height)
+        }
+    }
 
     var left: Float = position.x
     var right: Float = position.x + width
@@ -24,6 +32,10 @@ class Rectangle(mass: Float, position: Vector2, var width: Float, var height: Fl
     }
 
     override fun collidesRect(other: Rectangle): Boolean {
+        //  edge case where the other rectangle is completely inside this rectangle.
+        if(other.left > left && other.right < right && other.top < top && other.bottom > bottom) {
+            return true
+        }
         return other.collidesPoint(leftbottom) || other.collidesPoint(lefttop)
                 || other.collidesPoint(rightbottom) || other.collidesPoint(righttop)
     }
@@ -51,6 +63,10 @@ class Rectangle(mass: Float, position: Vector2, var width: Float, var height: Fl
         return (2 * width) + (2 * height)
     }
 
+    override fun render(shapeRenderer: ShapeRenderer) {
+        shapeRenderer.rect(position.x, position.y, width, height)
+    }
+
     private fun updateVertices() {
         leftbottom.set(left, bottom)
         lefttop.set(left, top)
@@ -58,8 +74,25 @@ class Rectangle(mass: Float, position: Vector2, var width: Float, var height: Fl
         righttop.set(right, top)
     }
 
+    fun setSize(width: Float, height: Float) {
+        val deltaWidth = width - this.width
+        val deltaHeight = height - this.height
+
+        right += deltaWidth
+        top += deltaHeight
+
+        lefttop.add(0f, deltaHeight)
+        righttop.add(deltaWidth, deltaHeight)
+        rightbottom.add(deltaWidth, 0f)
+
+        center.add(deltaWidth / 2, deltaHeight / 2)
+
+        this.width = width
+        this.height = height
+    }
+
     /** Just sets the bottom left position */
-    fun setPosition(x: Float, y: Float) {
+    override fun setPosition(x: Float, y: Float) {
         position.set(x, y)
         left = x
         right = x + width

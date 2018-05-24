@@ -9,7 +9,7 @@ eclipse.project {
     name = appName + "-core"
 }
 buildscript {
-    ext.kotlin_version = '1.2.40'
+    ext.kotlin_version = '1.2.41'
     repositories {
         mavenCentral()
     }
@@ -21,7 +21,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "junit:junit:4.12"
 }
 repositories {
