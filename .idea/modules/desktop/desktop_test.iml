@@ -2,13 +2,14 @@
 <module external.linked.project.id=":desktop:test" external.linked.project.path="$MODULE_DIR$/../../../desktop" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="planet_physics" external.system.module.type="sourceSet" external.system.module.version="1.0" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 1.6" useProjectSettings="false">
+      <configuration version="3" platform="JVM 1.8" useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
           <option name="destination" value="$MODULE_DIR$/../../../desktop/build/kotlin-classes/test" />
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
           <option name="moduleName" value="desktop" />
+          <option name="jvmTarget" value="1.8" />
           <option name="addCompilerBuiltIns" value="true" />
           <option name="loadBuiltInsFromDependencies" value="true" />
           <option name="languageVersion" value="1.2" />
@@ -23,7 +24,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output-test url="file://$MODULE_DIR$/../../../desktop/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../desktop/src/test" />
