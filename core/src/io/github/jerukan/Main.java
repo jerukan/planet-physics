@@ -25,8 +25,8 @@ public class Main extends Game {
 
     private InputMultiplexer inputs;
 
-    private ArrayList<Drawable> drawables = new ArrayList<Drawable>();
-    private ArrayList<Planet> planetList = new ArrayList<Planet>();
+    private ArrayList<Drawable> drawables = new ArrayList<>();
+    private ArrayList<Planet> planetList = new ArrayList<>();
 
     @Override
     public void create() {

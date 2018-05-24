@@ -97,24 +97,6 @@ public class Planet extends PhysicsObject implements Drawable {
                 "velocity: $velocity\n" +
                 "otherstartpos: $otherstartposx\n" +
                 "othervel: ${other.velocity}\n");
-        float collideposx;
-        if(velocity.x - other.velocity.x != 0f) {
-            collideposx = startposx + velocity.x * ((otherstartposx - startposx) / (velocity.x - other.velocity.x)) - radius * (Math.abs(velocity.x) / velocity.x);
-        }
-        else {
-            collideposx = position.x;
-        }
-
-        float collideposy;
-        if(velocity.y - other.velocity.y != 0f) {
-            collideposy = startposy + velocity.y * ((otherstartposy - startposy) / (velocity.y - other.velocity.y)) - radius * (Math.abs(velocity.y) / velocity.y);
-        }
-        else {
-            collideposy = position.y;
-        }
-
-        //in the case the planetList are inside each other, set them to where they would've been at instant of collision
-//        prevPos.set(collideposx, collideposy)
 
         projectedVel.x = (velocity.x * (mass - other.mass) + (2 * other.mass * other.velocity.x)) / (mass + other.mass);
         projectedVel.y = (velocity.y * (mass - other.mass) + (2 * other.mass * other.velocity.y)) / (mass + other.mass);
