@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import io.github.jerukan.physics.PhysicsObject;
 import io.github.jerukan.physics.PhysicsState;
 import io.github.jerukan.planetdata.Planet;
 import io.github.jerukan.rendering.WorldRenderer;

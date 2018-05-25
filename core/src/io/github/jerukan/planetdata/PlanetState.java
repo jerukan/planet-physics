@@ -48,7 +48,7 @@ public class PlanetState extends PhysicsState {
     @Override
     public void add(PhysicsObject physicsObject) {
         if(physicsObject instanceof Planet) {
-            add(physicsObject);
+            add((Planet) physicsObject);
         } else {
             super.add(physicsObject);
         }
