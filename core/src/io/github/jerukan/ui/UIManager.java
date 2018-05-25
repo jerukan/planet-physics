@@ -13,18 +13,17 @@ import io.github.jerukan.util.Assets;
 
 public class UIManager {
 
-    private SpriteBatch batch;
     private PlanetState planetState;
     private ScreenViewport viewport = new ScreenViewport();
-    public Stage stage = new Stage(viewport, batch);
+    public Stage stage;
 
     private Label infoLabel= new Label("None", Assets.uiSkin, "default");
     private Label disclaimer = new Label("Disclaimer: This simulation does not have proper physics.\nI'm too lazy to actually do it.", Assets.uiSkin, "default");
     //    private val font: BitmapFont = BitmapFont()
 
     public UIManager(SpriteBatch batch, PlanetState planetState) {
-        this.batch = batch;
         this.planetState = planetState;
+        stage = new Stage(viewport, batch);
 
         Table table = new Table();
         table.setWidth(100f);
