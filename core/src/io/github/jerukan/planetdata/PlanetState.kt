@@ -5,6 +5,9 @@ import io.github.jerukan.physics.PhysicsObject
 import io.github.jerukan.physics.PhysicsState
 import io.github.jerukan.rendering.Drawable
 
+/**
+ * This class does not use the physicsObjects ArrayList from PhysicsState, since Planets have additional required methods not found in PhysicsObject.
+ */
 class PlanetState(private val planetList: ArrayList<Planet>, private val drawables: ArrayList<Drawable>): PhysicsState() {
 //    var mercury: Planet = Planet("mercury")
 //    var venus: Planet = Planet("venus")
@@ -21,6 +24,9 @@ class PlanetState(private val planetList: ArrayList<Planet>, private val drawabl
 //    var p2 = Planet("p2", 500f, Vector2(200f, 0f), 50f)
 //    var p3 = Planet("p3", 200f, Vector2(500f, 100f), 30f)
 
+    /**
+     * Checks collisions and updates vectors of all existing planets.
+     */
     override fun update() {
         for(loops in 0 until warp) {
             for (i in planetList.indices) {
@@ -45,14 +51,6 @@ class PlanetState(private val planetList: ArrayList<Planet>, private val drawabl
     fun add(vararg allPlanets: Planet) {
         for(planet in allPlanets) {
             add(planet)
-        }
-    }
-
-    override fun add(physicsObject: PhysicsObject) {
-        if(physicsObject is Planet) {
-            add(physicsObject)
-        } else {
-            super.add(physicsObject)
         }
     }
 }

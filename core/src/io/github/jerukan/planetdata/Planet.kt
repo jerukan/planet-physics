@@ -8,8 +8,12 @@ import io.github.jerukan.physics.PhysicsConstants
 import io.github.jerukan.physics.PhysicsObject
 import io.github.jerukan.rendering.Drawable
 import io.github.jerukan.rendering.camera.OrthoCameraWrapper
+import io.github.jerukan.util.Functions
 import io.github.jerukan.util.shapes.Circle
 import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
 
 class Planet(var name: String, mass: Float, position: Vector2, var radius: Float): PhysicsObject(mass, position, Circle(position, radius)), Drawable {
     //    var parser: Parser = Parser()
@@ -29,6 +33,7 @@ class Planet(var name: String, mass: Float, position: Vector2, var radius: Float
 
     private var collided = false
     private var canCollide = true
+    var stationary = false
 
     private var texture: Texture
 
@@ -40,10 +45,16 @@ class Planet(var name: String, mass: Float, position: Vector2, var radius: Float
         circlePixmap.dispose()
     }
 
+    /**
+     * Sets the reference array of Planets in [PlanetState] in order to calculate gravitational acceleration.
+     */
     fun setGravitiesFromPlanets(planets: ArrayList<Planet>) {
         gravitiesFromPlanets = planets
     }
 
+    /**
+     * Is currently very broken, only works at right angles
+     */
     fun setCircularOrbit(other: Planet) {
         val dist = position.dst(other.position)
         val g = PhysicsConstants.G * other.mass / (dist * dist)
@@ -55,9 +66,13 @@ class Planet(var name: String, mass: Float, position: Vector2, var radius: Float
 
     override fun updateVectors(deltaTime: Float) {
         projectedAccel.set(0f, 0f)
-        gravitiesFromPlanets
+
+        if(!stationary) {
+            gravitiesFromPlanets
                 .filter { it != this }
                 .forEach { projectedAccel.add(accelFromGravity(it)) }
+        }
+
         acceleration.set(projectedAccel)
 
         lineEnd.set(position.x + acceleration.x * 1000, position.y + acceleration.y * 1000)
@@ -100,10 +115,10 @@ class Planet(var name: String, mass: Float, position: Vector2, var radius: Float
         val otherstartposx: Float = other.position.x - other.velocity.x
         val otherstartposy: Float = other.position.y - other.velocity.y
 
-        println("startposx: $startposx\n" +
-                "velocity: $velocity\n" +
-                "otherstartpos: $otherstartposx\n" +
-                "othervel: ${other.velocity}\n")
+//        println("startposx: $startposx\n" +
+//                "velocity: $velocity\n" +
+//                "otherstartpos: $otherstartposx\n" +
+//                "othervel: ${other.velocity}\n")
         val collideposx: Float = if(velocity.x - other.velocity.x != 0f) {
             startposx + velocity.x * ((otherstartposx - startposx) / (velocity.x - other.velocity.x)) - radius * (abs(velocity.x) / velocity.x)
         }
@@ -124,11 +139,18 @@ class Planet(var name: String, mass: Float, position: Vector2, var radius: Float
         projectedVel.x = (velocity.x * (mass - other.mass) + (2 * other.mass * other.velocity.x)) / (mass + other.mass)
         projectedVel.y = (velocity.y * (mass - other.mass) + (2 * other.mass * other.velocity.y)) / (mass + other.mass)
 
-        println("original pos: $position")
-        println("start pos: ($startposx, $startposy)")
-        println("collide pos: ($collideposx, $collideposy)")
-        println("end velocity: $projectedVel")
-        println("-------------------------")
+        val surfaceAngle: Double = Functions.wrapRadians(atan2(other.position.y - position.y, other.position.x - position.x) + Math.PI / 2)
+        val collisionAngle: Double = atan2(velocity.y.toDouble(), velocity.x.toDouble())
+        val reflectionAngle: Double = (collisionAngle - surfaceAngle) + (-surfaceAngle)
+        val speed = projectedVel.len()
+        val resultVector = Vector2((speed * cos(reflectionAngle)).toFloat(), (-speed * sin(reflectionAngle)).toFloat())
+        projectedVel.set(resultVector)
+
+//        println("original pos: $position")
+//        println("start pos: ($startposx, $startposy)")
+//        println("collide pos: ($collideposx, $collideposy)")
+//        println("end velocity: $projectedVel")
+//        println("-------------------------")
     }
 
     override fun render(batch: SpriteBatch) {

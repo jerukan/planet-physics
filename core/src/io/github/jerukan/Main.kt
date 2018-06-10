@@ -38,7 +38,8 @@ class Main : Game() {
         batch = SpriteBatch()
 
         val p1 = Planet("bap", 500f, Vector2(250f, 250f), 50f)
-        val p2 = Planet("bip", 5f, Vector2(400f, 250f), 5f)
+//        p1.stationary = true
+        val p2 = Planet("bip", 500f, Vector2(400f, 250f), 50f)
         p2.setCircularOrbit(p1)
         add(p1)
         add(p2)
