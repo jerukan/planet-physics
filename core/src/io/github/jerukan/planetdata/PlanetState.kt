@@ -53,4 +53,12 @@ class PlanetState(private val planetList: ArrayList<Planet>, private val drawabl
             add(planet)
         }
     }
+
+    override fun add(physicsObject: PhysicsObject) {
+        if(physicsObject is Planet) {
+            add(physicsObject)
+        } else {
+            super.add(physicsObject)
+        }
+    }
 }
