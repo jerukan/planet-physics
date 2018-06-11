@@ -78,7 +78,6 @@ class Planet(var name: String, mass: Float, position: Vector2, var radius: Float
         lineEnd.set(position.x + acceleration.x * 1000, position.y + acceleration.y * 1000)
 
         if(collided) {
-            print(projectedVel)
             velocity.set(projectedVel)
 
 //            position.set(prevPos)

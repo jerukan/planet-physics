@@ -54,6 +54,9 @@ class PlanetState(private val planetList: ArrayList<Planet>, private val drawabl
         }
     }
 
+    /**
+     * This class will only take in objects of type [Planet], or else nothing happens
+     */
     override fun add(physicsObject: PhysicsObject) {
         if(physicsObject is Planet) {
             add(physicsObject)

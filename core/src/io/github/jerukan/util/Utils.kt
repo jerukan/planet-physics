@@ -28,27 +28,4 @@ object Functions {
     fun withinThreshold(num: Float, target: Float, threshold: Float): Boolean {
         return abs(target - num) < abs(threshold)
     }
-
-    /**
-     * Insertion sort from least to greatest.
-     * Sorts the section of the array from [start, end).
-     * A useless function just for a computer science project requirement :^)
-     */
-    fun insertionSort(array: IntArray, start: Int, end: Int) {
-        for (i in start + 1 until end) {
-            if (array[i] < array[i - 1]) {
-                for (j in start until i) {
-                    if (array[i] < array[j]) {
-                        swap(array, i, j)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun swap(array: IntArray, first: Int, second: Int) {
-        val temp = array[first]
-        array[first] = array[second]
-        array[second] = temp
-    }
 }
