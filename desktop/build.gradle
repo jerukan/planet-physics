@@ -54,7 +54,7 @@ task afterEclipseImport(description: "Post processing after project generation",
   }
 }
 buildscript {
-    ext.kotlin_version = '1.2.41'
+    ext.kotlin_version = '1.2.50'
     repositories {
         mavenCentral()
     }
